@@ -24,7 +24,7 @@ const router = express.Router()
   ]
  */
 router.get('/', (req, res, next) => {
-  Schemes.find()
+  Schemes.find(req.query)
     .then(schemes => {
       res.json(schemes)
     })
