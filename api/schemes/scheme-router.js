@@ -100,10 +100,10 @@ router.get('/:scheme_id/steps', checkSchemeId, (req, res, next) => {
     "scheme_name": "Take Ovah"
   }
 */
-router.post('/', validateScheme, (req, res, next) => {
-  const scheme = req.body
+router.post('/', validateScheme, async (req, res, next) => {
+  const scheme = await req.body
 
-  Schemes.add(scheme)
+  await Schemes.add(scheme)
     .then(scheme => {
       res.status(201).json(scheme)
     })
