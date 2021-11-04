@@ -13,7 +13,7 @@ const checkSchemeId = async (req, res, next) => {
     const verify = await db('schemes')
       .where('scheme_id', req.params.scheme_id).first()
     if (!verify) {
-      next({status: 404, message:`scheme with ${req.params.scheme_id} not found`})
+      next({status: 404, message:`scheme with scheme_id ${req.params.scheme_id} not found`})
     } else {
       next()
     }
@@ -49,7 +49,15 @@ const validateScheme = (req, res, next) => {
   }
 */
 const validateStep = (req, res, next) => {
-
+  const { instructions, step_number } = req.body
+  if (!instructions || instructions.length < 1 ||
+    typeof instructions !== 'string' ||
+    typeof step_number !== 'number' ||
+    step_number < 1) {
+    next({status: 400, message: "invalid step"})
+  } else {
+    next()
+  }
 }
 
 module.exports = {
